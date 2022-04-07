@@ -20,7 +20,7 @@
         <tbody>
         <% @groups.each do |group| %>
           <tr>
-            <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
+            <td><%= attachment_image_tag @group.image, size: '50x50' %></td>
             <td><%= @group.name %></td>
             <td><%= @group.introduction %></td>
           <% if @group.user == current_user %>

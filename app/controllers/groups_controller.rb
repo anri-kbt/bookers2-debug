@@ -5,6 +5,7 @@ class GroupsController < ApplicationController
   def index
     @book=Book.new
     @groups=Group.all
+    @group = Group.find(params[:id])
   end
 
   def show
@@ -16,9 +17,9 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group=Group.new(params[:group_id])
+    @group=Group.new(group_params)
     @group.owner_id = current_user.id
-    if @group.save!
+    if @group.save
       redirect_to groups_path
     else
       render :new
