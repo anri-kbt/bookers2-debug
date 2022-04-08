@@ -20,10 +20,10 @@
         <tbody>
         <% @groups.each do |group| %>
           <tr>
-            <td><%= attachment_image_tag @group.image, size: '50x50' %></td>
+            <td><%= image_tag group.get_image,size:'50x50' %></td>
             <td><%= @group.name %></td>
             <td><%= @group.introduction %></td>
-          <% if @group.user == current_user %>
+          <% if @group.owner_id == current_user.id %>
             <td><%= link_to 'Edit', edit_group_path(@group), class: "btn btn-sm btn-success" %></td>
           <% end %>
           </tr>

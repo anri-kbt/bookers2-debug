@@ -11,7 +11,7 @@
   <tbody>
     <% users.each do |user| %>
       <tr>
-        <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
+        <td><%= image_tag user.get_profile_image, size:'50x50' %></td>
         <td><%= user.name %></td>
         <td><p>フォロー数：<%= user.followings.count %></p></td>
         <td><p>フォロワー数：<%= user.followers.count %></p></td>
