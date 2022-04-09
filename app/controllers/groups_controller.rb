@@ -18,10 +18,10 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.create(group_params)
+    @group = Group.new(group_params)
     @group.owner_id = current_user.id #グループを作った人がオーナーになる
     @group.users << current_user #メンバーにオーナー（作成者）も含める
-    if @group.save
+    if @group.save!
       redirect_to groups_path
     else
       render :new
@@ -74,7 +74,7 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-    params.require(:group).permit(:name, :introduction, :image )
+    params.require(:group).permit(:name, :introduction, :image)
   end
 
   def ensure_correct_user
