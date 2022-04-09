@@ -18,7 +18,9 @@ Rails.application.routes.draw do
     get 'followers' => 'relationships#followers', as: 'followers'
   end
   resources :groups do 
-    get "join" => "groups#join"
+    get "join" => "groups#join" #ビューで使うルーティング
+    get "new/mail"=> "groups#new_mail"
+    get "send/mail" => "groups#send_mail"
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 

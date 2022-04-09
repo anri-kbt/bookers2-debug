@@ -3,14 +3,14 @@ class GroupsController < ApplicationController
   before_action :ensure_correct_user, only: [:edit, :update]
 
   def index
-    @book=Book.new
-    @groups=Group.all
+    @book = Book.new
+    @groups = Group.all
     @group = Group.new
   end
 
   def show
-    @group=Group.find(params[:id])
-    @user=current_user
+    @group = Group.find(params[:id])
+    @user = current_user
   end
 
   def new
@@ -18,9 +18,9 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.new(group_params)
-    @group.owner_id = current_user.id
-    @group.users << current_user
+    @group = Group.create(group_params)
+    @group.owner_id = current_user.id #グループを作った人がオーナーになる
+    @group.users << current_user #メンバーにオーナー（作成者）も含める
     if @group.save
       redirect_to groups_path
     else
@@ -51,18 +51,19 @@ class GroupsController < ApplicationController
       render "edit"
     end
   end
-  
+
   def new_mail
     @group = Group.find(params[:group_id])
   end
-  
+
   def send_mail
     @group = Group.find(params[:group_id])
     group_users = @group.users
     @mail_title = params[:mail_title]
     @mail_content = params[:mail_content]
-    ContactMailer.send_mail(@gmail_title, @mail_content,group_users).deliver
-  
+    ContactMailer.send_mail(@mail_title, @mail_content,group_users).deliver
+  end
+
 
   def destroy
     @group = Group.find(params[:id])
@@ -71,8 +72,9 @@ class GroupsController < ApplicationController
   end
 
   private
+
   def group_params
-    params.require(:group).permit(:name, :introduction, :image)
+    params.require(:group).permit(:name, :introduction, :image )
   end
 
   def ensure_correct_user
