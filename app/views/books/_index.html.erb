@@ -8,6 +8,8 @@
     </tr>
   </thead>
   <tbody>
+    <%= link_to '新しい順',books_path(latest: "true") %>|
+    <%= link_to '評価の高い順',books_path(star_count: "true") %>
     <% books.each do |book| %>
       <tr>
         <td><%= link_to(book.user) do %>
@@ -22,6 +24,7 @@
         <td>
           <p>コメント数：<%= book.book_comments.count %></p>
         </td>
+        <td><%= render "books/static_rate", book: book %></td>
       </tr>
     <% end %>
   </tbody>
